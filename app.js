@@ -7,11 +7,13 @@ var express = require('express'),
   routes = require('./routes'),
   api = require('./routes/api'),
   http = require('http'),
-  path = require('path');
+  path = require('path'),
+  sockets = require('./routes/socket');
 
 var app = module.exports = express();
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
+var WebSocket = require('ws');
 
 /**
  * Configuration
@@ -53,7 +55,8 @@ app.get('/api/name', api.name);
 app.get('*', routes.index);
 
 // Socket.io Communication
-io.sockets.on('connection', require('./routes/socket'));
+io.sockets.on('connection', sockets.server);
+sockets.client.Start(WebSocket);
 
 /**
  * Start Server
