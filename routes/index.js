@@ -3,7 +3,7 @@
  */
 
 exports.index = function(req, res){
-  res.render('index');
+  res.render('index', {name:"What's up."});
 };
 
 exports.partials = function (req, res) {

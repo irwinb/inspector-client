@@ -1,5 +1,5 @@
 {
-  "name": "application-name",
+  "name": "inspector",
   "version": "0.0.0",
   "ignore": [
     "**/.*",
@@ -7,7 +7,12 @@
     "components"
   ],
   "dependencies": {
-    "angular": "~1.0.7",
-    "angular-socket-io": "~0.0.2"
+    "backbone" : null,
+    "react" : null,
+    "foundation" : null,
+    "underscore" : null,
+    "socket.io" : null,
+    "socket.io-client" : null,
+    "requirejs" : null
   }
 }

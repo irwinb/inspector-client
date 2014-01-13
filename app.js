@@ -6,9 +6,11 @@
 var express = require('express'),
   routes = require('./routes'),
   api = require('./routes/api'),
+  feed = require('./routes/feed')
   http = require('http'),
   path = require('path'),
-  sockets = require('./routes/socket');
+  socketServer = require('./socketServer'),
+  socketClient = require('./socketClient');
 
 var app = module.exports = express();
 var server = require('http').createServer(app);
@@ -46,7 +48,7 @@ if (app.get('env') === 'production') {
 
 // serve index and view partials
 app.get('/', routes.index);
-app.get('/partials/:name', routes.partials);
+app.get('/feed', feed.feed);
 
 // JSON API
 app.get('/api/name', api.name);
@@ -55,8 +57,8 @@ app.get('/api/name', api.name);
 app.get('*', routes.index);
 
 // Socket.io Communication
-io.sockets.on('connection', sockets.server);
-sockets.client.Start(WebSocket);
+io.sockets.on('connection', socketServer.handler);
+socketClient.Start(WebSocket);
 
 /**
  * Start Server

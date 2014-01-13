@@ -3,7 +3,10 @@ html(ng-app="myApp")
   head
     meta(charset='utf8')
     base(href='/')
-    title Angular Socket.io Seed App
+    title Inspector
+    link(rel='stylesheet', href='/css/foundation.css')
+    link(rel='stylesheet', href='/css/normalize.css')
     link(rel='stylesheet', href='/css/app.css')
+  script(src='js/libs/requirejs/require.js', data-main='js/main.js')
   body
     block body
