@@ -1,5 +1,5 @@
 requirejs.config({
-	baseUrl: 'js/libs',
+	baseUrl: 'js/app',
 	shim: {
 		'socketio': {
 			exports: 'io'
@@ -19,15 +19,14 @@ requirejs.config({
 		}
 	},
 	paths: {
-		jquery: 'jquery/jquery',
-		underscore: 'underscore/underscore',
-		backbone: 'backbone/backbone',
-		socketio: 'socket.io/socket.io',
-		react: 'react/react',
-		app: '../app'
+		jquery: '../libs/jquery/jquery',
+		underscore: '../libs/underscore/underscore',
+		backbone: '../libs/backbone/backbone',
+		socketio: '../libs/socket.io/socket.io',
+		react: '../libs/react/react',
 	}
 });
 
-requirejs(['app/app'], function(app) {
-	app.start();
+requirejs(['feed'], function(feed) {
+	feed.start();
 });

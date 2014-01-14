@@ -7,14 +7,20 @@ exports.handler = function (socket) {
 	console.log("New client.");
 	
 	socket.on('message', function(data, flags) {
+		console.log("[on:message]" + data);
 		try {
 			var jsonData = JSON.parse(data);
 			if (jsonData.project === undefined) {
 				console.log("Invalid message from a socket.  Dropping.");
 				socket.disconnect();
-			} else {
-				addClient(jsonData.project.name, socket);
+				return;
 			}
+			if (Object.prototype.toString.call(jsonData.project.name) != '[object String]') {
+				console.log("Invalid message from a socket.  Dropping.");
+				socket.disconnect();
+				return;
+			}
+			addClient(jsonData.project.name, socket);
 		} catch (e) {
 			console.log("Invalid message from a socket.  Dropping." + e.toString());
 			socket.disconnect();
