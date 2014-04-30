@@ -18,10 +18,9 @@ exports.Start = function(WebSocket, server) {
 	client.socket.on('message', function(message, flags) {
 		try {
 			var data = JSON.parse(message);
-			console.log("[Feeder] New message: " + data)
 			socketServer.newMessage(data);
 		} catch (e) {
-			console.log("Invalid message: " + message);
+			console.log("Invalid message [" + message + "] \n" + e);
 		}
 	});
 };

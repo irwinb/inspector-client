@@ -1,7 +1,9 @@
 extends layout
 
+block scripts
+	script(src='js/libs/requirejs/require.js', data-main='js/app/feed_main.js')
+
 block body
 	div(ng-controller='AppCtrl')
 		form(class='row collapse')
-			h2 Feed
-			div(class='small-10 columns')
+			div(id='feedContainer', class='small-12 columns')

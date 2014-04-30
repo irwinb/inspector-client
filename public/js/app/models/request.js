@@ -1,16 +1,15 @@
 define([
-	'backbone',
-	'models/operation'
-], function(Backbone, Operation) {
+	'backbone'
+], function(Backbone) {
 	'use strict';
 
-	var Request = Operation.extend({
+	var Request = Backbone.Model.extend({
 		defaults: {
 			"protocol" : "",
-			"header" : {},
+			"headers" : {},
 			"body" : "",
 			"content_length" : -1,
-			"transfer_encoding" : []
+			"transfer_encoding" : [],
 			"method" : "",
 			"host": "",
 			"remote_addr" : "",

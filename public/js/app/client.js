@@ -1,14 +1,14 @@
 /**
 	Events:
-	'request'
-	'response'
+	'operation'
 */
 define([
 	'backbone',
 	'underscore',
 	'socketio',
-	'collections/operations'
-], function(Backbone, _, io, Operations) {
+	'collections/operations',
+	'models/operation'
+], function(Backbone, _, io, Operations, Operation) {
 	'use strict';
 
 	var Client = {};
@@ -27,7 +27,7 @@ define([
 
 	var onConnect = function() {
 		console.log("Connected to server.");
-		Client.joinProject(Client.project.name);
+		Client.joinProject(Client.project);
 	};
 	var onDisconnectRetry = function() {
 		// Retry logic?!
@@ -38,24 +38,31 @@ define([
 	};
 
 	var onMessage = function(data) {
-		console.log("New message: " + data);
 		try {
 			var operation = JSON.parse(data);
 			addOperation(operation);
 		} catch (e) {
-			console.log("Couldn't parse message:" + data);
+			console.log("Couldn't add message because " + e.toString());
 		}
 	}
 
 	var addOperation = function(operation) {
-		Client.project.operations.add(operation);
+		var operations = Client.project.get('operations');
+		var oldOperation = operations.get(
+			operation.id);
+		if (oldOperation !== undefined) {
+			oldOperation.set(operation);
+			oldOperation.set('completed', true);
+		} else {
+			operations.add(new Operation(operation));
+		}
 	}
 
-	Client.joinProject = function(projName) {
+	Client.joinProject = function(project) {
 		socket.send(JSON.stringify({
-			project: {
-				name: projName
-			}}));
+			action: 'set_project',
+			project: project
+		}));
 	};
 
 	return Client;

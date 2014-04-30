@@ -7,7 +7,6 @@ exports.handler = function (socket) {
 	console.log("New client.");
 	
 	socket.on('message', function(data, flags) {
-		console.log("[on:message]" + data);
 		try {
 			var jsonData = JSON.parse(data);
 			if (jsonData.project === undefined) {
@@ -15,12 +14,8 @@ exports.handler = function (socket) {
 				socket.disconnect();
 				return;
 			}
-			if (Object.prototype.toString.call(jsonData.project.name) != '[object String]') {
-				console.log("Invalid message from a socket.  Dropping.");
-				socket.disconnect();
-				return;
-			}
-			addClient(jsonData.project.name, socket);
+
+			parseInitMessage(socket, jsonData);
 		} catch (e) {
 			console.log("Invalid message from a socket.  Dropping." + e.toString());
 			socket.disconnect();
@@ -28,9 +23,28 @@ exports.handler = function (socket) {
 	});
 };
 
-// Message should also contain project info.
+function isString(data) {
+	return Object.prototype.toString.call(data) == '[object String]';
+}
+
+// Possible actions:
+// set_project: set the current project.
+function parseInitMessage(socket, msg) {
+	if (msg.action == 'set_project' && isValidProject(msg.project)) {
+		addClient(socket, msg.project.id);
+		return;
+	}
+
+	console.log("Invalid message from a socket: " + JSON.stringify(msg));
+}
+
+function isValidProject(project) {
+	return project !== undefined && project.id !== undefined && project.id > 0
+}
+
+// A message from backend.  Should also contain project info.
 exports.newMessage = function(data) {
-	var listeners = projectToSockets[data.project.name];
+	var listeners = projectToSockets[data.project_id];
 	if (typeof listeners === "undefined") {
 		return;
 	}
@@ -41,7 +55,7 @@ exports.newMessage = function(data) {
 	}
 }
 
-function addClient(projectName, socket) {
+function addClient(socket, projectId) {
 	// A client can only listen to one project at a time.
 	var oldProject = socketToProject[socket];
 	if (typeof oldProject !== "undefined") {
@@ -54,19 +68,19 @@ function addClient(projectName, socket) {
 		}
 	}
 
-	var listeners = projectToSockets[projectName];
+	var listeners = projectToSockets[projectId];
 	if (typeof listeners === "undefined") {
 		listeners = new Array(socket);
-		projectToSockets[projectName] = listeners;
+		projectToSockets[projectId] = listeners;
 	}
 
-	socketToProject[socket] = projectName;
+	socketToProject[socket] = projectId;
 	listeners.push(socket);
 
-	console.log("Client started listening to project " + projectName + ".");
+	console.log("Client started listening to project " + projectId + ".");
 
 	socket.on('disconnect', function() {
-		console.log("Client for project " + projectName + " disconnected.");
+		console.log("Client for project " + projectId + " disconnected.");
 		listeners.splice(listeners.indexOf(socket), 1);
 	});
 }

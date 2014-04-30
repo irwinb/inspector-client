@@ -6,8 +6,14 @@ define([
 	'use strict';
 
 	var Operation = Backbone.Model.extend({
-		defaults: {
-			""
+		defaults: function() {
+			return {
+				"id": 0,
+				"project_id": 0,
+				"completed": false,
+				"request": new Request(),
+				"response": new Response()
+			}
 		}
 	});
 

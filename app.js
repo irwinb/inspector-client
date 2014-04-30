@@ -57,6 +57,7 @@ app.get('/api/name', api.name);
 app.get('*', routes.index);
 
 // Socket.io Communication
+io.set('log level', 1);
 io.sockets.on('connection', socketServer.handler);
 socketClient.Start(WebSocket);
 

@@ -1,15 +1,16 @@
-/** @jsx React.DOM */
 define([
 	'backbone',
-	'client'
-], function(Backbone, Client) {
+	'client',
+	'models/project',
+	'collections/operations'
+], function(Backbone, Client, Project, Operations) {
 	'use strict';
 
-	var currentProject = {
+	var currentProject = new Project({
 		name: "facebook_graph",
-		connected: false,
+		id: 1,
 		operations: new Operations()
-	};
+	});
 	
 	var feed = {};
 	feed.start = function() {
@@ -18,6 +19,7 @@ define([
 
 	feed.currentProject = currentProject;
 	
+	feed.start();
 
 	return feed;
 });
