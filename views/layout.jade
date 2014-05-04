@@ -3,10 +3,13 @@ html(ng-app="myApp")
   head
     meta(charset='utf8')
     base(href='/')
-    title Inspector
-    link(rel='stylesheet', href='/css/foundation.css')
+    title=title
     link(rel='stylesheet', href='/css/normalize.css')
+    link(rel='stylesheet', href='/css/foundation.css')
+    link(rel='stylesheet', href='/css/nprogress.css')
     link(rel='stylesheet', href='/css/app.css')
-  block scripts
+    script(src='/js/libs/modernizr/modernizr.js')
+    script(src='js/libs/jquery/jquery.min.js')
+    block scripts
   body
     block body

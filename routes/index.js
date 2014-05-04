@@ -2,8 +2,10 @@
  * GET home page.
  */
 
+exports.notFound = require('./notFound.js').notFound;
+
 exports.index = function(req, res){
-  res.render('index', {name:"What's up."});
+  res.render('index', {title:"Inspector"});
 };
 
 exports.partials = function (req, res) {

@@ -1,6 +1,26 @@
 extends layout
 
+block scripts
+	script(src='js/libs/foundation/foundation/foundation.js')
+	script(src='js/libs/foundation/foundation/foundation.reveal.js')
+	script(src='js/libs/nprogress/nprogress.js')
+	script(src='js/index.js')
+
 block body
-  div(ng-controller='AppCtrl')
-    h2 Yo
-    a(href="/feed") Go to feed
+	div(class='row')
+		div(class='small-12 columns')
+			a(href='/')
+			h1=title
+			div(class='row')
+				div(class='small-9 large-6 small-centered large-uncentered columns')
+					form
+						div(class='row collapse')
+							div(class='small-3 large-2 columns')
+								span(class='prefix') http://
+							div(class='small-9 large-10 columns')
+								input(type='text', value='telize.com/jsonip')
+						a(class='button', id='try-now-btn') Try It
+	div(id='errorModal', class='reveal-modal', data-reveal)
+		h2 Error!
+		p(class='lead') Sorry..something went wrong creating your temporary workspace.
+		a(class='close-reveal-modal') &#215;

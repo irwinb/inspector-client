@@ -32,7 +32,7 @@ requirejs.config({
 		backbone: '../libs/backbone/backbone',
 		socketio: '../libs/socket.io/socket.io',
 		react: '../libs/react/react',
-		foundation: '../libs/foundation/js/foundation'
+		foundation: '../libs/foundation/foundation.min'
 	}
 });
 

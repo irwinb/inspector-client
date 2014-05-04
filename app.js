@@ -48,13 +48,14 @@ if (app.get('env') === 'production') {
 
 // serve index and view partials
 app.get('/', routes.index);
-app.get('/feed', feed.feed);
+app.get('/feed/:id', feed.feed);
 
 // JSON API
-app.get('/api/name', api.name);
+app.get('/api/projects/:id', api.getProject);
+app.post('/api/projects', api.updateProject);
 
 // redirect all others to the index (HTML5 history)
-app.get('*', routes.index);
+app.get('*', routes.notFound);
 
 // Socket.io Communication
 io.set('log level', 1);

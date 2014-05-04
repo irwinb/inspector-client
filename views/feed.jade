@@ -2,6 +2,7 @@ extends layout
 
 block scripts
 	script(src='js/libs/requirejs/require.js', data-main='js/app/feed_main.js')
+	script!=project
 
 block body
 	div(ng-controller='AppCtrl')
