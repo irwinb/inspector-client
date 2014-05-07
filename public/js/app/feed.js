@@ -1,25 +1,38 @@
+/*
+	Triggers a 'ready' event once the project has been loaded and connected.
+*/
 define([
 	'backbone',
+	'underscore',
 	'client',
 	'models/project',
 	'collections/operations'
-], function(Backbone, Client, Project, Operations) {
+], function(Backbone, _, Client, Project, Operations) {
 	'use strict';
-
-	var currentProject = new Project({
-		name: "facebook_graph",
-		id: 1,
-		operations: new Operations()
-	});
+	var Feed = {};
+	_.extend(Feed, Backbone.Events);
 	
-	var feed = {};
-	feed.start = function() {
-		Client.connect(currentProject);
+	Feed.start = function() {
+		Feed.trigger('ready');
+		Client.connect(Feed.currentProject);
+	};
+	Feed.errorStarting = function (error) {
+		Feed.trigger('error', error);
 	};
 
-	feed.currentProject = currentProject;
-	
-	feed.start();
+	var parts = document.URL.split("/");
+	var id = parts.pop();
+	Feed.currentProject = new Project({
+		id: id
+	});
 
-	return feed;
+	Feed.currentProject.fetch()
+		.done(function (data) {
+			Feed.start();
+		})
+		.fail(function (jqXHR, textStatus, errorThrown) {
+			Feed.errorStarting(errorThrown);
+		});
+
+	return Feed;
 });

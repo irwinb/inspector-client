@@ -44,20 +44,22 @@ requirejs([
 	'feed',
 	'views/feed'
 ], function($, doc, Foundation, React, Feed, FeedView) {
-	var feedView = React.renderComponent(
-		FeedView( {initialOperations:Feed.currentProject.get('operations'), project:Feed.currentProject}),
-		$('#feedContainer')[0]
-	);
-	var collectionChanged = function() {
-		feedView.setState({
-			operations: Feed.currentProject.get('operations')
-		});
-	};
-	var operationChanged = function() {
-		feedView.setState({
-			operations: Feed.currentProject.get('operations')
-		});
-	};
-	Feed.currentProject.get('operations').on('add', collectionChanged);
-	Feed.currentProject.get('operations').on('change', operationChanged);
+	Feed.on('ready', function () {
+		var feedView = React.renderComponent(
+			FeedView( {initialOperations:Feed.currentProject.get('operations'), project:Feed.currentProject}),
+			$('#feedContainer')[0]
+		);
+		var collectionChanged = function() {
+			feedView.setState({
+				operations: Feed.currentProject.get('operations')
+			});
+		};
+		var operationChanged = function() {
+			feedView.setState({
+				operations: Feed.currentProject.get('operations')
+			});
+		};
+		Feed.currentProject.get('operations').on('add', collectionChanged);
+		Feed.currentProject.get('operations').on('change', operationChanged);
+	});
 });
