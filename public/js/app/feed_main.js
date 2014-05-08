@@ -27,12 +27,12 @@ requirejs.config({
 	},
 	paths: {
 		modernizr: '../libs/modernizr/modernizr.js',
-		jquery: '../libs/jquery/jquery',
+		jquery: '../libs/jquery/dist/jquery',
 		underscore: '../libs/underscore/underscore',
 		backbone: '../libs/backbone/backbone',
 		socketio: '../libs/socket.io/socket.io',
 		react: '../libs/react/react',
-		foundation: '../libs/foundation/foundation.min'
+		foundation: '../libs/foundation/js/foundation/foundation'
 	}
 });
 
