@@ -1,16 +1,15 @@
 define([
-	'backbone',
-	'collections/operations'
-], function(Backbone, Operations) {
+	'backbone'
+], function(Backbone) {
 	'use strict';
-
+	
 	var Project = Backbone.Model.extend({
 		urlRoot: '/api/projects',
 		defaults: {
 			"id": -1,
-			"target_endpoint": "[NULL]",
+			"last_updated" : "",
 			"name":"[NULL]",
-			"operations": new Operations()
+			"endpoint":{}
 		}
 	});
 

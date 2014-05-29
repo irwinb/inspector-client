@@ -1,15 +1,18 @@
 !!!
-html(ng-app="myApp")
+html(lang='en')
   head
     meta(charset='utf8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
     base(href='/')
     title=title
-    link(rel='stylesheet', href='/css/normalize.css')
-    link(rel='stylesheet', href='/css/foundation.css')
+    link(rel='stylesheet', href='/libs/normalize.css/normalize.css')
+    link(rel='stylesheet', href='/libs/bootstrap/dist/css/bootstrap.css')
     link(rel='stylesheet', href='/css/nprogress.css')
     link(rel='stylesheet', href='/css/app.css')
-    script(src='/js/libs/modernizr/modernizr.js')
-    script(src='js/libs/jquery/dist/jquery.min.js')
+    script(src='/libs/jquery/dist/jquery.min.js')
+    script(src='/libs/modernizr/modernizr.js')
     block scripts
   body
-    block body
+    div(class='container')
+        h1=title
+        block body

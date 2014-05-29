@@ -48,10 +48,11 @@ exports.newMessage = function(data) {
 	if (typeof listeners === "undefined") {
 		return;
 	}
-
+	
+	var obj = JSON.stringify(data);
 	for (var i = 0; i < listeners.length; i++) {
 		var socket = listeners[i];
-		socket.send(JSON.stringify(data));
+		socket.send(obj);
 	}
 }
 

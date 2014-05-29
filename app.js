@@ -52,7 +52,8 @@ app.get('/feed/:id', feed.feed);
 
 // JSON API
 app.get('/api/projects/:id', api.getProject);
-app.post('/api/projects', api.updateProject);
+app.put('/api/projects/:id', api.updateProject);
+app.post('/api/projects', api.createProject);
 
 // redirect all others to the index (HTML5 history)
 app.get('*', routes.notFound);

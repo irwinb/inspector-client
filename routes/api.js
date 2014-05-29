@@ -14,6 +14,10 @@ exports.getProject = function (req, res) {
 	request.get(baseUrl + "projects/" + id).pipe(res)
 };
 
+exports.createProject = function (req, res) {
+	request.post(baseUrl + "projects", {json:req.body}).pipe(res);
+};
+
 exports.updateProject = function (req, res) {
 	request.post(baseUrl + "projects", {json:req.body}).pipe(res);
 };

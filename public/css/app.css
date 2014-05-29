@@ -5,7 +5,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     -o-text-overflow: ellipsis;
-    max-width: 50%;
+    max-width: 30%;
 }
 
 .header-value {
@@ -14,54 +14,98 @@
     overflow: hidden;
     text-overflow: ellipsis;
     -o-text-overflow: ellipsis;
-    max-width: 50%;
+    max-width: 70%;
 }
 
 .operation-preview {
-	padding: 1em;
-	border-width: 10px;
+	padding: 1rem;
+	border-left: 5px solid;
+	border-bottom: 1px solid gray;
+}
+
+.operation-details {
+	height: 0px;
+	overflow: hidden;
+	transition: height .25s;
+	-moz-transition: height .25s; /* Firefox 4 */
+	-webkit-transition: height .25s; /* Safari and Chrome */
+	-o-transition: height .25s; /* Opera */
+}
+
+.operation-details-body {
+	overflow: scroll;
+	max-height: 80px;
+}
+
+.operation-details-expanded {
+	height: 200px;
 }
 
 .operation-p-method {
 	font-weight: bold;
-	font-size: .8em;
 }
 
 .operation-p-uri {
-	font-size: .7em;
-	margin-left: 1em;
+	margin-left: 1rem;
 }
 
 .operation-p-code {
-	font-size: .8em;
 }
 
 .operation-p-pending {
-	background-color: #e7e7e7;
-	border-color: #dadada;
-	color: #4e4e4e;
+	border-left-color: #dadada;
 }
 
 .operation-p-200 {
-	background-color: #43ac6a;
-	border-color: #3c9a5e;
-	color: white;
+	border-left-color: #5cb85c;
 }
 
 .operation-p-300 {
-	background-color: #a0d3e8;
-	border-color: #8bcae3;
-	color: #4e4e4e;
+	border-left-color: #5bc0de;
 }
 
 .operation-p-400 {
-	background-color: #f08a24;
-	border-color: #ea7d10;
-	color: white;
+	border-left-color: #f0ad4e;
 }
 
 .operation-p-500 {
-	background-color: #f04124;
-	border-color: #ea2d10;
-	color: white;
+	border-left-color: #d9534f;
+}
+
+.operation-request-wrapper {
+}
+
+.operation-response-wrapper {
+}
+
+.operation-details-header {
+	border-style: solid;
+	border-width: 0px 0px 0px 1px;
+	border-color: gray;
+	padding-left: 4px;
+}
+
+.settings-icon {
+	line-height: 1.4rem;
+	font-size: 1.4rem;
+}
+
+.settings-endpoint {
+	margin-bottom: 1rem;
+	background-color: #e7e7e7;
+    font-weight: normal;
+    font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif !important;
+    text-align: center;
+    text-decoration: none;
+    line-height: 1;
+    white-space: nowrap;
+    display: inline-block;
+    position: relative;
+    padding: 0.22222rem 0.44444rem 0.33333rem;
+    color: #333;
+}
+
+.endpoint-copy-icon {
+	font-size: 1.4rem;
+	margin-left: 8px;
 }

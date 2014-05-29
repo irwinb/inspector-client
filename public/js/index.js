@@ -2,14 +2,10 @@
 
 $(document).ready(function () {
 	NProgress.start();
-	$('#try-now-btn').on('click', Foundation.utils.debounce(function(e){
-		tryNow();
-	}, 1000, true));
+	setProtocolHttps();
 });
 
 $(window).load(function () {
- 	$(document).foundation();
- 	$(document).foundation('reflow');
 	NProgress.done();
 });
 
@@ -21,24 +17,63 @@ $(document).ajaxStop(function () {
 	NProgress.done();
 });
 
-var tryNow = function () {
+var protocol = '';
+
+var onKeyUp = function(e) {
+	if (e.keyCode == 13) {
+		tryNow();
+		return true;
+	}
+	return false;
+};
+
+var setProtocolHttp = function () {
+	updateProtocol('http:// ');
+};
+
+var setProtocolHttps = function () {
+	updateProtocol('https:// ');
+};
+
+var updateProtocol = function (newProtocol) {
+	protocol = newProtocol;
+	$('#protocol-str').text(newProtocol);
+};
+
+var tryNow = function (e) {
 	var proj = {
-		name:'Example Project',
+		name:$('#proj-title').val(),
 		endpoint: {
-			target:'telize.com/jsonip',
-			name:'Telize'
+			'target':$('#proj-target').val(),
+			'name':$('#proj-title').val()
 		}};
+	if (proj.endpoint.target.length <= 7) {
+		$('#errorModal').modal({});
+		return false;
+	}
+	if (protocol === 'https:// ') {
+		proj.endpoint.protocol = 'https'
+	} else if (protocol === 'http:// ') {
+		proj.endpoint.protocol = 'http'
+	} else {
+		$('#errorModal').modal({});
+		return false;
+	}
+	
 	var request = $.ajax({
 		type: 'POST',
 		url: '/api/projects',
 		contentType: "application/json; charset=utf-8",
 		dataType: 'json',
 		data: JSON.stringify(proj)
-	});
-	request.done(function (data) {
+	})
+	.done(function (data) {
 		window.location.href = '/feed/' + data.id;
+	})
+	.fail(function (jqXHR, textStatus) {
+		$('#errorModal').modal({});
 	});
-	request.fail(function (jqXHR, textStatus) {
-		$('#errorModal').foundation('reveal', 'open');
-	});
+
+	return false;
+
 };

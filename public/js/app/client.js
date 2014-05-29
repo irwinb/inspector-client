@@ -16,8 +16,9 @@ define([
 
 	var socket = null;
 
-	Client.connect = function(project) {
+	Client.connect = function(project, operations) {
 		Client.project = project;
+		Client.operations = operations;
 		socket = io.connect();
 
 		socket.on('connect', onConnect);
@@ -42,19 +43,18 @@ define([
 			var operation = JSON.parse(data);
 			addOperation(operation);
 		} catch (e) {
-			console.log("Couldn't add message because " + e.toString());
+			console.log(e);
 		}
 	}
 
 	var addOperation = function(operation) {
-		var operations = Client.project.get('operations');
-		var oldOperation = operations.get(
+		var oldOperation = Client.operations.get(
 			operation.id);
 		if (oldOperation !== undefined) {
 			oldOperation.set(operation);
 			oldOperation.set('completed', true);
 		} else {
-			operations.add(new Operation(operation));
+			Client.operations.add(new Operation(operation));
 		}
 	}
 

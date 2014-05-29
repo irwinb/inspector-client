@@ -1,9 +1,10 @@
 define([
 	'backbone',
+	'backbone-relational'
 ], function(Backbone) {
 	'use strict';
 
-	var Response = Backbone.Model.extend({
+	var Response = Backbone.RelationalModel.extend({
 		defaults: {
 			"protocol" : "",
 			"headers" : {},
@@ -12,7 +13,8 @@ define([
 			"transfer_encoding" : [],
 			"trailer" : {},
 			"status": "",
-			"status_code" : -1
+			"status_code" : -1,
+			"timestamp": 0
 		}
 	});
 

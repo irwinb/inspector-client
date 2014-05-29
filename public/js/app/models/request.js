@@ -1,9 +1,10 @@
 define([
-	'backbone'
+	'backbone',
+	'backbone-relational'
 ], function(Backbone) {
 	'use strict';
 
-	var Request = Backbone.Model.extend({
+	var Request = Backbone.RelationalModel.extend({
 		defaults: {
 			"protocol" : "",
 			"headers" : {},
@@ -13,7 +14,8 @@ define([
 			"method" : "",
 			"host": "",
 			"remote_addr" : "",
-			"request_uri" : ""
+			"request_uri" : "",
+			"timestamp": 0
 		}
 	});
 

@@ -1,65 +1,22 @@
 /** @jsx React.DOM */
-requirejs.config({
-	baseUrl: 'js/app',
-	shim: {
-		'modernizr' : {
-			exports: "Modernizr"
-		},
-		'socketio': {
-			exports: 'io'
-		},
-		'underscore' : {
-			exports: "_"
-		},
-		'react' : {
-			exports: "React"
-		},
-		'backbone' : {
-			deps: [
-				'underscore',
-				'jquery'
-			],
-			exports: "Backbone"
-		},
-		'foundation' : {
-			exports: 'foundation'
-		}
-	},
-	paths: {
-		modernizr: '../libs/modernizr/modernizr.js',
-		jquery: '../libs/jquery/dist/jquery',
-		underscore: '../libs/underscore/underscore',
-		backbone: '../libs/backbone/backbone',
-		socketio: '../libs/socket.io/socket.io',
-		react: '../libs/react/react',
-		foundation: '../libs/foundation/js/foundation/foundation'
-	}
-});
+requirejs(['js/app/config.js'], function() {
+	requirejs([
+		'jquery',
+		'../domReady!',
+		'react',
+		'progress',
+		'feed',
+		'views/feed'
+	], function($, doc, React, Progress, Feed, FeedView) {
+		Progress.init();
 
-requirejs([
-	'jquery',
-	'../domReady!',
-	'foundation',
-	'react',
-	'feed',
-	'views/feed'
-], function($, doc, Foundation, React, Feed, FeedView) {
-	Feed.on('ready', function () {
-		var feedView = React.renderComponent(
-			FeedView( {initialOperations:Feed.currentProject.get('operations'), project:Feed.currentProject}),
-			$('#feedContainer')[0]
-		);
-		var collectionChanged = function() {
-			feedView.setState({
-				operations: Feed.currentProject.get('operations')
-			});
-		};
-		var operationChanged = function() {
-			feedView.setState({
-				operations: Feed.currentProject.get('operations')
-			});
-		};
-		Feed.currentProject.get('operations').on('add', collectionChanged);
-		Feed.currentProject.get('operations').on('change', operationChanged);
+		Feed.on('ready', function () {
+			var feedView = React.renderComponent(
+				FeedView( {project:Feed.project, operations:Feed.operations}),
+				$('#feedContainer')[0],
+				function () {
+				}
+			);
+		});
 	});
 });

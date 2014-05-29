@@ -8,11 +8,15 @@
   ],
   "dependencies": {
     "backbone" : null,
+    "backbone-relational": null,
     "react" : null,
-    "foundation" : null,
     "underscore" : null,
     "socket.io" : null,
     "socket.io-client" : null,
-    "requirejs" : null
+    "requirejs" : null,
+    "jquery": null,
+    "bootstrap": null,
+    "modernizr": null,
+    "normalize.css": null
   }
 }
