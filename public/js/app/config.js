@@ -39,10 +39,11 @@ requirejs.config({
 		underscore: '../../libs/underscore/underscore',
 		backbone: '../../libs/backbone/backbone',
 		'backbone-relational': '../../libs/backbone-relational/backbone-relational',
-		socketio: '../../libs/socket.io-client/dist/socket.io',
+		socketio: '../../libs/socket.io-client/socket.io',
 		react: '../../libs/react/react-with-addons',
 		nprogress: '../../libs/nprogress/nprogress',
 		progress: '../app/utils/progress',
-		bootstrap: '../../libs/bootstrap/dist/js/bootstrap'
+		bootstrap: '../../libs/bootstrap/dist/js/bootstrap',
+		hljs: '../../libs/highlight/build/highlight.pack'
 	}
 });

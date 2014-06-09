@@ -3,8 +3,9 @@ define([
 	'jquery',
 	'react',
 	'views/operation',
+	'views/operationDetails',
 	'views/settings'
-], function($, React, OperationView, SettingsModal) {
+], function($, React, OperationView, OperationDetails, SettingsModal) {
 	'use strict';
 
 	var operationView = React.createClass({displayName: 'operationView',
@@ -26,6 +27,13 @@ define([
 			ops.on('add', collectionChanged, this);
 			ops.on('remove', collectionChanged, this);
 			ops.on('change', operationChanged, this);
+
+			if (this.props.operations.size() > 0) {
+				this.selectOperation(this.props.operations.last());
+			}
+		},
+		selectOperation: function (operation) {
+			this.setState({selectedOperation: operation});
 		},
 		showSettings: function (errResponse) {
 			this.refs.settingsModal.showModal(this.props.project);
@@ -36,10 +44,35 @@ define([
 		settingsSavedFailure: function (response, project) {
 			console.error(response);
 		},
+		onOperationClick: function (operation) {
+			this.selectOperation(operation);
+		},
+		getEmptyOperations: function () {
+			return (
+				React.DOM.div(null, 
+					" No operations yet.. "
+				)
+			);
+		},
+		getEmptyOperationDetails: function () {
+			return (
+				React.DOM.div(null, 
+					" No operations yet.. "
+				)
+			);
+		},
 		render: function() {
-			var operations = this.props.operations.map(function(operation) {
-				return OperationView( {operation:operation});
-			});
+			var operations;
+			var operationDetails;
+			if (this.props.operations.size() > 0) {
+				operations = this.props.operations.map(function(operation) {
+					return OperationView( {operation:operation, onOperationClick:this.onOperationClick});
+				}, this);
+				operationDetails = OperationDetails( {operation:this.state.selectedOperation});
+			} else {
+				operations = this.getEmptyOperations();
+				operationDetails = this.getEmptyOperationDetails();
+			}
 
 			return (
 				React.DOM.div( {id:"feed", className:"feed"}, 
@@ -52,8 +85,11 @@ define([
 						)
 					),
 					React.DOM.div( {className:"row"}, 
-						React.DOM.div( {className:"col-md-12"}, 
+						React.DOM.div( {className:"col-md-4"}, 
 							operations
+						),
+						React.DOM.div( {className:"col-md-8"}, 
+							operationDetails
 						)
 					),
 					SettingsModal( {ref:'settingsModal', onSaveFailure:this.settingsSavedFailure, onSaveSuccess:this.settingsSavedSuccess, modalId:"settingsModal"})

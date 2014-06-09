@@ -19,6 +19,6 @@
     "commit": "b5ea0b299096fb0c5f0ee9c2dd7b831a9f764b1e"
   },
   "_source": "git://github.com/PaulUithol/Backbone-relational.git",
-  "_target": "*",
+  "_target": "0.8.8",
   "_originalSource": "backbone-relational"
 }

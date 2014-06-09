@@ -24,21 +24,9 @@
 }
 
 .operation-details {
-	height: 0px;
-	overflow: hidden;
-	transition: height .25s;
-	-moz-transition: height .25s; /* Firefox 4 */
-	-webkit-transition: height .25s; /* Safari and Chrome */
-	-o-transition: height .25s; /* Opera */
 }
 
 .operation-details-body {
-	overflow: scroll;
-	max-height: 80px;
-}
-
-.operation-details-expanded {
-	height: 200px;
 }
 
 .operation-p-method {
@@ -79,10 +67,6 @@
 }
 
 .operation-details-header {
-	border-style: solid;
-	border-width: 0px 0px 0px 1px;
-	border-color: gray;
-	padding-left: 4px;
 }
 
 .settings-icon {

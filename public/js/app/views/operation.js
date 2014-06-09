@@ -1,14 +1,13 @@
 /** @jsx React.DOM */
 define([
 	'react',
-	'views/operationDetails',
 	'utils/constants'
-], function(React, OperationDetails, Const) {
+], function(React, Const) {
 	'use strict';
 
 	var operationView = React.createClass({displayName: 'operationView',
 		handleClick: function () {
-			this.refs.operationDetails.toggleExpanded();
+			this.props.onOperationClick.apply(this, [this.props.operation]);
 		},
 		getId: function () {
 			return 'operation' + this.props.operation.get('id');
@@ -64,8 +63,7 @@ define([
 						),
 						React.DOM.span( {className:"pull-right"}
 						)
-					),
-					OperationDetails( {ref:'operationDetails', operation:this.props.operation})
+					)
 				)
 			);
 		}

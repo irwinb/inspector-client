@@ -3,8 +3,9 @@ define([
 	'jquery',
 	'react',
 	'views/operation',
+	'views/operationDetails',
 	'views/settings'
-], function($, React, OperationView, SettingsModal) {
+], function($, React, OperationView, OperationDetails, SettingsModal) {
 	'use strict';
 
 	var operationView = React.createClass({
@@ -26,6 +27,13 @@ define([
 			ops.on('add', collectionChanged, this);
 			ops.on('remove', collectionChanged, this);
 			ops.on('change', operationChanged, this);
+
+			if (this.props.operations.size() > 0) {
+				this.selectOperation(this.props.operations.last());
+			}
+		},
+		selectOperation: function (operation) {
+			this.setState({selectedOperation: operation});
 		},
 		showSettings: function (errResponse) {
 			this.refs.settingsModal.showModal(this.props.project);
@@ -36,10 +44,35 @@ define([
 		settingsSavedFailure: function (response, project) {
 			console.error(response);
 		},
+		onOperationClick: function (operation) {
+			this.selectOperation(operation);
+		},
+		getEmptyOperations: function () {
+			return (
+				<div>
+					No operations yet..
+				</div>
+			);
+		},
+		getEmptyOperationDetails: function () {
+			return (
+				<div>
+					No operations yet..
+				</div>
+			);
+		},
 		render: function() {
-			var operations = this.props.operations.map(function(operation) {
-				return <OperationView operation={operation}/>;
-			});
+			var operations;
+			var operationDetails;
+			if (this.props.operations.size() > 0) {
+				operations = this.props.operations.map(function(operation) {
+					return <OperationView operation={operation} onOperationClick={this.onOperationClick}/>;
+				}, this);
+				operationDetails = <OperationDetails operation={this.state.selectedOperation}/>;
+			} else {
+				operations = this.getEmptyOperations();
+				operationDetails = this.getEmptyOperationDetails();
+			}
 
 			return (
 				<div id='feed' className='feed'>
@@ -52,8 +85,11 @@ define([
 						</div>
 					</div>
 					<div className='row'>
-						<div className='col-md-12'>
+						<div className='col-md-4'>
 							{operations}
+						</div>
+						<div className='col-md-8'>
+							{operationDetails}
 						</div>
 					</div>
 					<SettingsModal ref={'settingsModal'} onSaveFailure={this.settingsSavedFailure} onSaveSuccess={this.settingsSavedSuccess} modalId='settingsModal'/>

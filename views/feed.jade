@@ -1,6 +1,7 @@
 extends layout
 
 block scripts
+	link(rel='stylesheet', href='/lib/highlight/src/styles/github.css')
 	script(src='libs/requirejs/require.js', data-main='js/app/feed_main.js')
 	script!=project
 

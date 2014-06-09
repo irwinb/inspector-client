@@ -6,31 +6,32 @@ block scripts
 	script(src='js/index.js')
 
 block body
-	div(class='row')
-		div(class='col-md-4')
-			form(role='form')
-				div(class='form-group')
-					label Project Name
-					input(class='form-control', type='text', id='proj-title', value='Example Project', onkeyup='onKeyUp(event)')
-				div(class='form-group')
-					div(class='input-group')
-						div(class='input-group-btn')
-							button(class='btn btn-default dropdown-toggle', type='button', data-toggle="dropdown") 
-								span(id='protocol-str')
-								span(class='caret')
-							ul(class='dropdown-menu')
-								li(onClick='setProtocolHttp()')
-									a(href='#') http://
-								li(onClick='setProtocolHttps()')
-									a(href='#') https://
-						input(class='form-control', placeholder='Target', type='text', id='proj-target', value='www.telize.com/jsonip', onkeyup='onKeyUp(event)')
-			button(onClick='tryNow()', class='btn btn-default', id='try-now-btn') Try It
-	div(class='modal fade', id='errorModal', tabindex='-1', role='dialog', aria-labelledby="errorModalLabel", aria-hidden="true")
-		div(class='modal-dialog')
-			div(class='modal-content')
-				div(class='modal-header')
-					button(type='button', class='close', data-dismiss='modal', area-hidden='true')
-					h4(class='modal-title', id='errorModalLabel') Error
-				div(class='modal-body', id='errorModalBody') Nooooooooooooo
-				div(class='modal-footer')
-					button(type='button', class='btn btn-default', data-dismiss='modal') Close
+	div(class='container')
+		div(class='row')
+			div(class='col-md-4')
+				form(role='form')
+					div(class='form-group')
+						label Project Name
+						input(class='form-control', type='text', id='proj-title', value='Example Project', onkeyup='onKeyUp(event)')
+					div(class='form-group')
+						div(class='input-group')
+							div(class='input-group-btn')
+								button(class='btn btn-default dropdown-toggle', type='button', data-toggle="dropdown") 
+									span(id='protocol-str')
+									span(class='caret')
+								ul(class='dropdown-menu')
+									li(onClick='setProtocolHttp()')
+										a(href='#') http://
+									li(onClick='setProtocolHttps()')
+										a(href='#') https://
+							input(class='form-control', placeholder='Target', type='text', id='proj-target', value='www.telize.com/jsonip', onkeyup='onKeyUp(event)')
+				button(onClick='tryNow()', class='btn btn-default', id='try-now-btn') Try It
+		div(class='modal fade', id='errorModal', tabindex='-1', role='dialog', aria-labelledby="errorModalLabel", aria-hidden="true")
+			div(class='modal-dialog')
+				div(class='modal-content')
+					div(class='modal-header')
+						button(type='button', class='close', data-dismiss='modal', area-hidden='true')
+						h4(class='modal-title', id='errorModalLabel') Error
+					div(class='modal-body', id='errorModalBody') Nooooooooooooo
+					div(class='modal-footer')
+						button(type='button', class='btn btn-default', data-dismiss='modal') Close

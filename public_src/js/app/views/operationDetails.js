@@ -3,22 +3,8 @@ define([
 	'react',
 	'views/operationTimeline',
 	'utils/css'
-], function(React, OperationTimeline, CSS) {
-	var details = React.createClass({	
-		expand: function (div) {
-			CSS.addClass(div, 'operation-details-expanded');
-		},
-		collapse: function (div) {
-			CSS.removeClass(div, 'operation-details-expanded');
-		},
-		toggleExpanded: function () {
-			var div = this.getDOMNode();
-			if (CSS.hasClass(div, 'operation-details-expanded')) {
-				this.collapse(div);
-			} else {
-				this.expand(div);
-			}
-		},
+], function(React, OperationTimeline) {
+	var details = React.createClass({
 		getHeaderView: function (headers, header) {
 			return (
 				<div className='row'>
@@ -49,11 +35,6 @@ define([
 
 			var body = req.get('body');
 			return (<div>{body}</div>)
-		},
-		getInitialState: function() {
-			return {
-				expanded: true
-			}
 		},
 		render: function() {
 			var request = this.props.operation.get('request');

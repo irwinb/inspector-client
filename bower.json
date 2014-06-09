@@ -7,16 +7,16 @@
     "components"
   ],
   "dependencies": {
-    "backbone" : null,
-    "backbone-relational": null,
-    "react" : null,
-    "underscore" : null,
-    "socket.io" : null,
-    "socket.io-client" : null,
-    "requirejs" : null,
-    "jquery": null,
-    "bootstrap": null,
-    "modernizr": null,
-    "normalize.css": null
+    "backbone" : "1.1.2",
+    "backbone-relational": "0.8.8",
+    "react" : "0.10.0",
+    "underscore" : "1.5.0",
+    "socket.io-client" : "1.0.4",
+    "requirejs" : "2.1.14",
+    "jquery": "2.1.1",
+    "bootstrap": "3.1.1",
+    "modernizr": "2.8.2",
+    "normalize.css": "3.0.1",
+    "highlight": "8.0"
   }
 }
